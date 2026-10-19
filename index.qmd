@@ -1,5 +1,7 @@
 ---
-title: "nikkosgordon94.github.io"
+title: "Nikkos' R Website"
+about: 
+  template: broadside
 ---
 
 This is a Quarto website.
