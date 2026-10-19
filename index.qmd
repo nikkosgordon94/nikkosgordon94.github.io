@@ -1,5 +1,7 @@
 ---
 title: "Nikkos' R Website"
+image: 
+toc: false
 about: 
   template: broadside
 ---
