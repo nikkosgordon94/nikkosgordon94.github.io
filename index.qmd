@@ -12,7 +12,8 @@ about:
       target: blank
     - text: Email
       icon: envelope
-      href: mailto: nikkos.gordon@student.chamiande.edu
+      mailto: nikkos.gordon@student.chamiande.edu
+      #bootswatch shows different website themes
 ---
 
 This is a Quarto website.

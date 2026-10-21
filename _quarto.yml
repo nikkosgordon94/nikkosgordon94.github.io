@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Nikkos M."
+  title: "Nikkos Miyasato"
   navbar:
     left:
       - href: index.qmd
@@ -13,8 +13,8 @@ website:
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      light: lux
+      dark: vapor
     css: styles.css
     toc: true
 
