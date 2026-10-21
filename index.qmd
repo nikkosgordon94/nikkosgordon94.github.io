@@ -1,6 +1,6 @@
 ---
 title: "Nikkos' R Website"
-image: C:/Users/nikko/Documents/R_Work/nikkosgordon94.github.io/_site/media/1000001745.jpeg
+image: media/1000001745.jpeg
 toc: false
 about: 
   template: broadside
