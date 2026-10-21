@@ -12,7 +12,7 @@ about:
       target: blank
     - text: Email
       icon: envelope
-      mailto: nikkos.gordon@student.chamiande.edu
+      mail-to: nikkos.gordon@student.chamiande.edu
       #bootswatch shows different website themes
 ---
 
@@ -21,5 +21,6 @@ This is a Quarto website.
 To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
 ```{r}
+#in build tab can use action to render website
 "1 + 1 = Window"
 ```
