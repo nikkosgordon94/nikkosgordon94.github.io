@@ -1,6 +1,6 @@
 ---
 title: "Nikkos' R Website"
-image: media/1000001745.jpeg
+image: _site/media/1000001745.jpeg
 toc: false
 about: 
   template: broadside
