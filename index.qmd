@@ -1,5 +1,13 @@
 ---
 title: "Nikkos' R Website"
+resources:
+  - _site/media/document.pdf
+---
+
+aksdbf; 
+
+{{<mpdf _site/media/document.pdf width=100% height=800}}
+
 image: _site/media/1000001745.jpeg
 toc: false
 about: 
@@ -12,7 +20,7 @@ about:
       target: blank
     - text: Email
       icon: envelope
-      mail-to: nikkos.gordon@student.chamiande.edu
+      href: mailto:nikkos.gordon@student.chamiande.edu
       #bootswatch shows different website themes
 ---
 
@@ -24,3 +32,11 @@ To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 #in build tab can use action to render website
 "1 + 1 = Window"
 ```
+
+# Header 1 - 1 \#'s
+
+## Header 2 - 2 \#'s
+
+### Header 3 - 3 \#'s
+
+This is paragraph text, it will be about me
