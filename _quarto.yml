@@ -5,17 +5,21 @@ project:
 website:
   title: "Nikkos Miyasato"
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
+      - resume.qmd
+      - icon: github
+        href: http://github.com/nikkosgordon94
 
 format:
   html:
+    theme:
       light: lux
       dark: vapor
-      css: styles.css
-  toc: true
+    css: styles.css
+    toc: true
 
 editor: visual
 
