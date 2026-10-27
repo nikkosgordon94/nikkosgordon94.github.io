@@ -1,6 +1,6 @@
 ---
 title: "Nikkos' R Website"
-image: media/1000001745.jpeg
+image: media/1000001745.jpeg 
 toc: false
 about: 
   template: broadside
@@ -16,4 +16,8 @@ about:
       #bootswatch shows different website themes
 ---
 
-This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account.
+### <B>Bio</B>
+
+My name is Nikkos Gordon, I'm currently 32 and aspiring to follow my goals in Education with Chaminade University of Honolulu. In school I'm majoring in DSAV and minoring in Cybersecurity; out of school I enjoy hiking and martial arts. My aspirations are to continue college to my MS in Data Science, to learn spatial visualization in depth, and showcase my projects on this site. This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account.
+
+Thank you for reading, and if you would like to read my professional CV there is a tab on the left pane.
