@@ -11,7 +11,7 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
-      - resume.qmd
+      - Updated Resume 10_26.pdf
       - icon: github
         href: http://github.com/nikkosgordon94
         target: blank
