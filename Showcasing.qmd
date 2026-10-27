@@ -2,3 +2,497 @@
 title: "showcasing"
 format: typst
 ---
+
+```{r}
+#install.packages("tidyverse")
+#install.packages("sf")
+#install.packages("rnaturalearth")
+#install.packages("rnaturalearthdata")
+#install.packages("rinat")
+#install.packages("tmap")
+#install.packages("leaflet")
+#install.packages("osmdata")
+#install.packages("plotly")
+
+#remotes::install_github("ropensci/rnaturalearthhires")
+
+#install.packages("rnaturalearthhires",
+#  repos = "https://ropensci.r-universe.dev",
+#  type = "source")
+
+library(ggplot2)
+library(rnaturalearth)
+library(rnaturalearthhires)
+library(rinat)
+library(sf)
+library(tidyverse)
+library(tmap)
+library(leaflet)
+library(osmdata)
+library(plotly)
+```
+
+# Attain co-ordinates for the Hawaiian Islands
+
+```{r}
+bb <- getbb("Hawaiian Islands")
+bb
+```
+
+# Import zoomed-in map of the Hawaiian Islands with minor x/y adjustments
+
+```{r}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+class(world)
+```
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(xlim = c(-160.5, -154.5), ylim = c(18.5, 22.5), expand = FALSE) +
+    ggtitle("Map of the Hawaiian Islands")+
+    theme_void()
+```
+
+# Bounding boxes for several main islands
+
+```{r}
+bb_oahu <- getbb("Oahu, Hawaii")
+bb_maui <- getbb("Maui, Hawaii")
+bb_kauai <- getbb("Kauai, Hawaii")
+bb_hawaii <- getbb("Hawaii Island, Hawaii")
+```
+
+# Import Co-ordinates for Islands of Hawai'i
+
+```{r}
+islands <- list(
+  hawaii = list(xlim = c(-156.1, -154.6), ylim = c(18.8, 20.4)),
+  maui = list(xlim = c(-156.8, -155.9), ylim = c(20.5, 21.2)),
+  oahu = list(xlim = c(-158.3, -157.6), ylim = c(21.2, 21.8)),
+  kauai = list(xlim = c(-159.9, -159.2), ylim = c(21.8, 22.3)),
+  molokai = list(xlim = c(-157.4, -156.7), ylim = c(21, 21.3)),
+  lanai = list(xlim = c(-157.1, -156.8), ylim = c(20.7, 21.1))
+)
+```
+
+# Create seperate maps for each island
+
+```{r}
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(xlim = c(-156.1, -154.6), ylim = c(18.8, 20.4), expand = FALSE) +
+    ggtitle("Hawai'i, Big Island")+
+    theme_void()
+
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(xlim = c(-156.8, -155.9), ylim = c(20.5, 21.2), expand = FALSE) +
+    ggtitle("Mau'i")+
+    theme_void()
+
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(xlim = c(-158.3, -157.6), ylim = c(21.2, 21.8), expand = FALSE) +
+    ggtitle("O'ahu")+
+    theme_void()
+
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(xlim = c(-159.9, -159.2), ylim = c(21.8, 22.3), expand = FALSE) +
+    ggtitle("Kaua'i")+
+    theme_void()
+
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(xlim = c(-157.4, -156.7), ylim = c(21, 21.3), expand = FALSE) +
+    ggtitle("Moloka'i")+
+    theme_void()
+
+ggplot(data = world) +
+    geom_sf() +
+    coord_sf(xlim = c(-157.1, -156.8), ylim = c(20.7, 21.1), expand = FALSE) +
+    ggtitle("Lani")+
+    theme_void()
+```
+
+# Update bounding box with overpass chunk
+
+```{r}
+bb %>%
+  opq()
+```
+
+# Check available tags to find applicable values in visualization
+
+```{r}
+available_tags("")
+```
+
+# Retrieve map value information to detail each map
+
+```{r}
+streets <- bb %>%
+  opq() %>%
+  add_osm_feature(key = "highway", value = c("primary", "secondary", "road", "living_street", "motorway")) %>%
+  osmdata_sf()
+
+forest <- bb %>%
+  opq() %>%
+  add_osm_feature(key = "landuse", value = "forest") %>%
+  osmdata_sf()
+
+parks <- bb %>%
+  opq() %>%
+  add_osm_feature(key = "leisure", value = c("nature_reserve", "park")) %>%
+  osmdata_sf()
+
+nature <- bb %>%
+  opq() %>%
+  add_osm_feature(key = "natural", value = c("wood", "coastline", "reef")) %>%
+  osmdata_sf()
+
+civilization <- bb %>%
+  opq() %>%
+  add_osm_feature(key = "place", value = c("city", "neighbourhood", "ocean")) %>%
+  osmdata_sf()
+```
+
+# Experiment with basic mapping skills
+
+```{r}
+ggplot() +
+  geom_sf(data = nature$osm_polygons) +
+  geom_sf_text(data = nature$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  coord_sf(xlim = c(-160.5, -154.5), ylim = c(18.5, 22.5), expand = FALSE)
+```
+
+# Create individual basic maps
+
+```{r}
+ggplot() +
+  geom_sf(data = forest$osm_polygons) +
+  geom_sf(data = nature$osm_polygons) +
+  geom_sf(data = streets$osm_polygons) +
+  geom_sf(data = parks$osm_polygons) +
+  geom_sf(data = civilization$osm_polygons) +
+  geom_sf_text(data = nature$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  coord_sf(xlim = c(-156.1, -154.6), ylim = c(18.8, 20.4), expand = FALSE)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons) +
+  geom_sf(data = nature$osm_polygons) +
+  geom_sf(data = streets$osm_polygons) +
+  geom_sf(data = parks$osm_polygons) +
+  geom_sf(data = civilization$osm_polygons) +
+  geom_sf_text(data = nature$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  coord_sf(xlim = c(-156.8, -155.9), ylim = c(20.5, 21.2), expand = FALSE)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons) +
+  geom_sf(data = nature$osm_polygons) +
+  geom_sf(data = streets$osm_polygons) +
+  geom_sf(data = parks$osm_polygons) +
+  geom_sf(data = civilization$osm_polygons) +
+  geom_sf_text(data = nature$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  coord_sf(xlim = c(-158.3, -157.6), ylim = c(21.2, 21.8), expand = FALSE)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons) +
+  geom_sf(data = nature$osm_polygons) +
+  geom_sf(data = streets$osm_polygons) +
+  geom_sf(data = parks$osm_polygons) +
+  geom_sf(data = civilization$osm_polygons) +
+  geom_sf_text(data = nature$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  coord_sf(xlim = c(-159.9, -159.2), ylim = c(21.8, 22.3), expand = FALSE)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons) +
+  geom_sf(data = nature$osm_polygons) +
+  geom_sf(data = streets$osm_polygons) +
+  geom_sf(data = parks$osm_polygons) +
+  geom_sf(data = civilization$osm_polygons) +
+  geom_sf_text(data = nature$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  coord_sf(xlim = c(-157.4, -156.7), ylim = c(21, 21.3), expand = FALSE)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons) +
+  geom_sf(data = nature$osm_polygons) +
+  geom_sf(data = streets$osm_polygons) +
+  geom_sf(data = parks$osm_polygons) +
+  geom_sf(data = civilization$osm_polygons) +
+  geom_sf_text(data = nature$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  coord_sf(xlim = c(-157.1, -156.8), ylim = c(20.7, 21.1), expand = FALSE)
+```
+
+# Detailed 2D Mapping
+
+```{r}
+ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = .4, alpha = .8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = .2, alpha = .8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = .8, alpha = .5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, colour = "#00bfff", fill = "#00bfff", alpha = .5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = .4, alpha = .8) +
+  coord_sf(xlim = c(-156.1, -154.6), ylim = c(18.8, 20.4), expand = TRUE) +
+  geom_sf_text(data = schools$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  theme_bw() +
+  labs(
+    title = "Detailed Map of Hawai'i",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = .4, alpha = .8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = .2, alpha = .8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = .8, alpha = .5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, colour = "#00bfff", fill = "#00bfff", alpha = .5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = .4, alpha = .8) +
+  coord_sf(xlim = c(-156.8, -155.9), ylim = c(20.5, 21.2), expand = TRUE) +
+  geom_sf_text(data = schools$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  theme_bw() +
+  labs(
+    title = "Detailed Map of Mau'i",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = .4, alpha = .8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = .2, alpha = .8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = .8, alpha = .5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, colour = "#00bfff", fill = "#00bfff", alpha = .5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = .4, alpha = .8) +
+  coord_sf(xlim = c(-158.3, -157.6), ylim = c(21.2, 21.8), expand = TRUE) +
+  geom_sf_text(data = schools$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  theme_bw() +
+  labs(
+    title = "Detailed Map of O'ahu",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = .4, alpha = .8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = .2, alpha = .8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = .8, alpha = .5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, colour = "#00bfff", fill = "#00bfff", alpha = .5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = .4, alpha = .8) +
+  coord_sf(xlim = c(-159.9, -159.2), ylim = c(21.8, 22.3), expand = TRUE) +
+  geom_sf_text(data = schools$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  theme_bw() +
+  labs(
+    title = "Detailed Map of Kaua'i",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+ggplot() +
+   geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = .4, alpha = .8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = .2, alpha = .8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = .8, alpha = .5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, colour = "#00bfff", fill = "#00bfff", alpha = .5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = .4, alpha = .8) +
+  coord_sf(xlim = c(-157.4, -156.7), ylim = c(21, 21.3), expand = TRUE) +
+  geom_sf_text(data = schools$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  theme_bw() +
+  labs(
+    title = "Detailed Map of Moloka'i",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = .4, alpha = .8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = .2, alpha = .8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = .8, alpha = .5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, colour = "#00bfff", fill = "#00bfff", alpha = .5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = .4, alpha = .8) +
+  coord_sf(xlim = c(-157.1, -156.8), ylim = c(20.7, 21.1), expand = TRUE) +
+  geom_sf_text(data = schools$osm_polygons, aes(label = name), size = 2, hjust = 0) +
+  theme_bw() +
+  labs(
+    title = "Detailed Map of Lani",
+    x = "Longitude",
+    y = "Latitude"
+)
+```
+
+# Create Leaflet interactive maps
+
+```{r}
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(
+    data = nature$osm_polygons,
+    label = nature$osm_polygons$name
+)
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(
+    data = forest$osm_polygons,
+    label = forest$osm_polygons$name
+)
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(
+    data = streets$osm_polygons,
+    label = streets$osm_polygons$name
+)
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(
+    data = parks$osm_polygons,
+    label = parks$osm_polygons$name
+)
+
+leaflet() %>%
+  addTiles() %>%
+  addPolygons(
+    data = civilization$osm_polygons,
+    label = civilization$osm_polygons$name
+)
+```
+
+# Retrieve data from iNaturalist on Hibiscus flowers# Retrieve data from iNaturalist on Hibiscus flowers
+
+```{r}
+inat_obs_df <- get_inat_obs(taxon_id = 48891, 
+                            place_id = 11, 
+                            quality = "research", 
+                            geo = TRUE, 
+                            maxresults = 100) 
+
+save(inat_obs_df, file = "Hibiscus.Rdata")
+```
+
+```{r}
+inat_obs_sf <-  inat_obs_df %>% 
+  select(longitude, latitude, datetime, common_name, scientific_name, image_url, user_login) %>% 
+  st_as_sf(coords=c("longitude", "latitude"), crs=4326)
+
+dim(inat_obs_sf)
+```
+
+# Scatterplot
+
+```{r}
+ggplot() +
+  geom_point(data = inat_obs_df, aes(x = longitude, y = latitude, color = common_name, text = common_name))
+```
+
+```{r}
+p <- ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = 0.4, alpha = 0.8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = 0.2, alpha = 0.8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = 0.8, alpha = 0.5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, color = "#00bfff", fill = "#00bfff", alpha = 0.5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = 0.4, alpha = 0.8) +
+  geom_point(data = inat_obs_df, aes(x = longitude, y = latitude, color = common_name)) + 
+  coord_sf(xlim = c(-156.1, -154.6), ylim = c(18.8, 20.4), expand = TRUE) +
+  ggtitle("Hibiscus Population on Big Island", subtitle = "Based on iNaturalist Data as of 2024") +
+  theme_bw() +
+  labs(
+    color = "Common Name",
+    x = "Longitude",
+    y = "Latitude"
+
+)
+
+p
+
+p <- ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = 0.4, alpha = 0.8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = 0.2, alpha = 0.8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = 0.8, alpha = 0.5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, color = "#00bfff", fill = "#00bfff", alpha = 0.5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = 0.4, alpha = 0.8) +
+  geom_point(data = inat_obs_df, aes(x = longitude, y = latitude, color = common_name)) +
+  coord_sf(xlim = c(-156.8, -155.9), ylim = c(20.5, 21.2), expand = TRUE) +
+  ggtitle("Hibiscus Population on O'ahu", subtitle = "Based on iNaturalist Data as of 2024") +
+  theme_bw() +
+  labs(
+    color = "Common Name",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+p
+
+p <- ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = 0.4, alpha = 0.8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = 0.2, alpha = 0.8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = 0.8, alpha = 0.5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, color = "#00bfff", fill = "#00bfff", alpha = 0.5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = 0.4, alpha = 0.8) +
+  geom_point(data = inat_obs_df, aes(x = longitude, y = latitude, color = common_name)) + 
+  coord_sf(xlim = c(-158.3, -157.6), ylim = c(21.2, 21.8), expand = FALSE) +
+  ggtitle("Hibiscus Population on Big Island", subtitle = "Based on iNaturalist Data as of 2024") +
+  theme_bw() +
+  labs(
+    color = "Common Name",
+    x = "Longitude",
+    y = "Latitude"
+
+)
+
+p
+
+p <- ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = 0.4, alpha = 0.8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = 0.2, alpha = 0.8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = 0.8, alpha = 0.5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, color = "#00bfff", fill = "#00bfff", alpha = 0.5, size = 1) +
+   geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = 0.4, alpha = 0.8) +
+  geom_point(data = inat_obs_df, aes(x = longitude, y = latitude, color = common_name)) + 
+  coord_sf(xlim = c(-159.9, -159.2), ylim = c(21.8, 22.3), expand = TRUE) +
+  ggtitle("Hibiscus Population on Kaua'i", subtitle = "Based on iNaturalist Data as of 2024") +
+  theme_bw() +
+  labs(
+    color = "Common Name",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+p
+
+p <- ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = 0.4, alpha = 0.8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = 0.2, alpha = 0.8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = 0.8, alpha = 0.5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, color = "#00bfff", fill = "#00bfff", alpha = 0.5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = 0.4, alpha = 0.8) +
+  geom_point(data = inat_obs_df, aes(x = longitude, y = latitude, color = common_name)) + 
+  coord_sf(xlim = c(-157.4, -156.7), ylim = c(21, 21.3), expand = TRUE) +
+  ggtitle("Hibiscus Population on Moloka'i", subtitle = "Based on iNaturalist Data as of 2024") +
+  theme_bw() +
+  labs(
+    color = "Common Name",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+p
+
+p <- ggplot() +
+  geom_sf(data = forest$osm_polygons, inherit.aes = FALSE, color = "#228b22", size = 0.4, alpha = 0.8) +
+  geom_sf(data = nature$osm_polygons, inherit.aes = FALSE, color = "green", size = 0.2, alpha = 0.8) +
+  geom_sf(data = streets$osm_lines, inherit.aes = FALSE, color = "darkgrey", size = 0.8, alpha = 0.5) +
+  geom_sf(data = parks$osm_polygons, inherit.aes = FALSE, color = "#00bfff", fill = "#00bfff", alpha = 0.5, size = 1) +
+  geom_sf(data = civilization$osm_points, inherit.aes = FALSE, color = "red", size = 0.4, alpha = 0.8) +
+  geom_point(data = inat_obs_df, aes(x = longitude, y = latitude, color = common_name)) + 
+  coord_sf(xlim = c(-157.1, -156.8), ylim = c(20.7, 21.1), expand = TRUE) +
+  ggtitle("Hibiscus Population on Lani", subtitle = "Based on iNaturalist Data as of 2024") +
+  theme_bw() +
+  labs(
+    color = "Common Name",
+    x = "Longitude",
+    y = "Latitude"
+)
+
+p
+```
