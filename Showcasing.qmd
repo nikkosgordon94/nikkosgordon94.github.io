@@ -1,4 +1,4 @@
 ---
-title: "Showcasing"
+title: "showcasing"
 format: typst
 ---
