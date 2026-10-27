@@ -7,7 +7,7 @@ project:
 website:
   title: "Nikkos Gordon"
   navbar:
-    right:
+    left:
       - href: index.qmd
         text: Home
       - about.qmd
