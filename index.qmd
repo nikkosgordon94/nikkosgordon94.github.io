@@ -12,7 +12,7 @@ about:
       target: blank
     - text: Email
       icon: envelope
-      href: mailto:nikkos.gordon@student.chamiande.edu
+      href: mailto:nikkos.gordon@student.chaminade.edu
       #bootswatch shows different website themes
 ---
 

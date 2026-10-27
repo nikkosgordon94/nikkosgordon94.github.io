@@ -1,0 +1,7 @@
+---
+title: "Resume"
+resources:
+  - media/document.pdf
+---
+
+{{< pdf media/Updated_Resume_10_26.pdf width=100% height=800 >}}

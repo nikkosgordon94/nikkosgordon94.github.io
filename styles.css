@@ -1,1 +1,25 @@
 /* css styles */
+/*Google how to use css*/
+
+h1, p {
+  color : red
+}/* css styles */
+
+h2 {
+  color : green 
+}
+
+/*p = paragraph text*/
+
+h3 {
+  color : black;
+  font-style: italic;
+}
+
+body {
+    background-color : lavender;
+}
+
+a {
+  color: teal;
+}

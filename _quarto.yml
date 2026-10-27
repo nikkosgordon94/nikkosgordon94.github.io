@@ -11,11 +11,11 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
-      - resume
+      - resume.qmd
       - icon: github
         href: http://github.com/nikkosgordon94
         target: blank
-    page-footer: Copyright by Nikkos Gordon 2026
+  page-footer: Copyright by Nikkos Gordon 2026
 
 
 format:
