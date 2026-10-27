@@ -1,24 +1,10 @@
 [
   {
-    "objectID": "index2.html",
-    "href": "index2.html",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "Nikkos’ R Website",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n#in build tab can use action to render website\n\"1 + 1 = Window\"\n\n[1] \"1 + 1 = Window\"\n\n# aksdbf;"
-  },
-  {
-    "objectID": "index2.html#header-2---2-s",
-    "href": "index2.html#header-2---2-s",
-    "title": "Nikkos’ R Website",
-    "section": "Header 2 - 2 #’s",
-    "text": "Header 2 - 2 #’s\n\nHeader 3 - 3 #’s\nThis is paragraph text, it will be about me"
-  },
-  {
-    "objectID": "about2.html",
-    "href": "about2.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account."
   },
   {
     "objectID": "about.html",
@@ -28,15 +14,8 @@
     "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Nikkos’ R Website",
-    "section": "",
-    "text": "This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account."
-  },
-  {
-    "objectID": "resume2.html",
-    "href": "resume2.html",
+    "objectID": "resume.html",
+    "href": "resume.html",
     "title": "Resume",
     "section": "",
     "text": "Download PDF file."
