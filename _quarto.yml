@@ -1,19 +1,28 @@
 project:
   type: website
+  output-dir: docs
+  
+# ~ additional metadata excluded for brevity ~
 
 website:
-  title: "nikkosgordon94.github.io"
+  title: "Nikkos Gordon"
   navbar:
-    left:
+    right:
       - href: index.qmd
         text: Home
       - about.qmd
+      - resume.qmd
+      - icon: github
+        href: http://github.com/nikkosgordon94
+        target: blank
+    page-footer: Copyright by Nikkos Gordon 2026
+
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      light: lux
+      dark: vapor
     css: styles.css
     toc: true
 

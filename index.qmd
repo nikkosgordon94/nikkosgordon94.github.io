@@ -1,11 +1,19 @@
 ---
-title: "nikkosgordon94.github.io"
+title: "Nikkos' R Website"
+image: media/1000001745.jpeg
+toc: false
+about: 
+  template: broadside
+  # can do image-shape (jolla/trestles)
+  #can do image-size (ie 10 cm)
+  links:
+    - icon: github
+      href: http://github.com/nikkosgordon94
+      target: blank
+    - text: Email
+      icon: envelope
+      href: mailto:nikkos.gordon@student.chamiande.edu
+      #bootswatch shows different website themes
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
-
-```{r}
-1 + 1
-```
+This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account.
