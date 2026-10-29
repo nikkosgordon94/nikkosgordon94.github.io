@@ -2,9 +2,9 @@
   {
     "objectID": "showcase.html",
     "href": "showcase.html",
-    "title": "Showcase GGPLOT/PLOTLY",
+    "title": "Showcase",
     "section": "",
-    "text": "Figure 1: MPG vs horsepower, colored by transmission.\n\n\n\n\n\n\n[1] \"sf\"         \"data.frame\"\n\n\n\n\n\n\nWorld Map Without Australia, Color Indexed.\n\n\n\n\n\n\n\n\n\nBasic Map of Solomon Islands."
+    "text": "Figure 1: MPG vs horsepower, colored by transmission.\n\n\n\n\n\n\n\n[1] \"sf\"         \"data.frame\"\n\n\n\n\n\nWorld Map Without Australia, Color Indexed.\n\n\n\n\n\n\n\n\n\nBasic Map of Solomon Islands."
   },
   {
     "objectID": "index.html",

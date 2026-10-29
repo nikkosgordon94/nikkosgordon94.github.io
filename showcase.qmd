@@ -1,5 +1,5 @@
 ---
-title: "Showcase GGPLOT/PLOTLY"
+title: "Showcase"
 author: "Nikkos Gordon"
 format:
   html:
@@ -15,7 +15,6 @@ execute:
 ```{r}
 #| label: fig-margin
 #| fig-cap: "MPG vs horsepower, colored by transmission."
-#| column: margin
 #| message: false
 library(ggplot2)
 mtcars2 <- mtcars
@@ -28,7 +27,6 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
 
 ```{r}
 #| fig-cap: "World Map Without Australia, Color Indexed."
-#| column: margin
 #| message: false
 #| warning: false
 library(tidyverse)
@@ -52,7 +50,6 @@ ggplot() +
 
 ```{r}
 #| fig-cap: "Basic Map of Solomon Islands."
-#| column: margin
 #| message: false
 #| warning: false
 
