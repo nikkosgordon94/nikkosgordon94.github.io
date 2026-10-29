@@ -23,3 +23,36 @@ ggplot(mtcars2, aes(hp, mpg, color = am)) +
   geom_point() + geom_smooth() +
   theme(legend.position = 'bottom')
 ```
+
+```{r}
+library(tidyverse)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(rnaturalearthhires)
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+class(world)
+
+world_without_Australia <- world |> 
+  filter(iso_a3 != "AUS")
+
+ggplot() +
+  geom_sf(data = world_without_Australia,aes(fill = as.factor(mapcolor7)),color = "#401D16", size = 0.25) +
+  scale_fill_brewer(palette = "Paired") +
+  guides(fill = "none") +
+  theme_minimal()
+```
+
+```{r}
+pacific_groups <- ne_download(scale = 50,type = "admin_0_pacific_groupings")
+
+ggplot() +
+  geom_sf(data = pacific_groups)+
+  geom_sf(data = world) +
+  geom_sf_text(data = world, aes(label = admin))+
+  coord_sf(crs = "+proj=ortho +lat_0=0 +lon_0=-160 ") +
+  coord_sf(xlim = c(145, 175), ylim = c(-20, 5), expand = FALSE) +
+  ggtitle("Solomon Islands", subtitle = "Showing Pacific Island Groupings")+
+  theme_void()
+```
