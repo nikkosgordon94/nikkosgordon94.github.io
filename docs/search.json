@@ -1,17 +1,17 @@
 [
   {
+    "objectID": "showcase.html",
+    "href": "showcase.html",
+    "title": "Showcase GGPLOT/PLOTLY",
+    "section": "",
+    "text": "library(ggplot2)\nmtcars2 &lt;- mtcars\nmtcars2$am &lt;- factor(mtcars$am, labels = c('automatic', 'manual'))\n\nggplot(mtcars2, aes(hp, mpg, color = am)) +\n  geom_point() + geom_smooth() +\n  theme(legend.position = 'bottom')\n\n\n\n\n\n\n\n\nFigure 1: MPG vs horsepower, colored by transmission."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Nikkos’ R Website",
     "section": "",
     "text": "Bio\nMy name is Nikkos Gordon, I’m currently 32 and aspiring to follow my goals in Education with Chaminade University of Honolulu. In school I’m majoring in DSAV and minoring in Cybersecurity; out of school I enjoy hiking and martial arts. My aspirations are to continue college to my MS in Data Science, to learn spatial visualization in depth, and showcase my projects on this site. This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account.\nThank you for reading, and if you would like to read my professional CV there is a tab on the left pane."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
   },
   {
     "objectID": "resume.html",
