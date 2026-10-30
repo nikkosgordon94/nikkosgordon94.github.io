@@ -4,6 +4,6 @@
     "href": "showcase.html",
     "title": "Showcase",
     "section": "",
-    "text": "Figure 1: MPG vs horsepower, colored by transmission.\n\n\n\n\n\n\n\n[1] \"sf\"         \"data.frame\"\n\n\n\n\n\nWorld Map Without Australia, Color Indexed.\n\n\n\n\n\n\n\n\n\nBasic Map of Solomon Islands.\n\n\n\n\n\n\n [1] \"domain\"             \"tld\"                \"domain_length\"     \n [4] \"has_numbers\"        \"has_hyphen\"         \"registrar\"         \n [7] \"creation_date\"      \"last_update_date\"   \"reputation\"        \n[10] \"malicious_votes\"    \"suspicious_votes\"   \"harmless_votes\"    \n[13] \"undetected_votes\"   \"total_engines\"      \"threat_severity\"   \n[16] \"categories\"         \"popularity_rank\"    \"last_analysis_date\"\n[19] \"whois_summary\"      \"data_source\"       \n\n\n\n\nInteractive Threat Plot"
+    "text": "Figure 1: MPG vs horsepower, colored by transmission.\n\n\n\n\n\n\n\n[1] \"sf\"         \"data.frame\"\n\n\n\n\n\nWorld Map Without Australia, Color Indexed.\n\n\n\n\n\n\n\n\n\nBasic Map of Solomon Islands."
   }
 ]

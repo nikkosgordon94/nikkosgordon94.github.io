@@ -66,26 +66,19 @@ ggplot() +
 ```
 
 ```{r}
-#| fig-cap: "Interactive Threat Plot"
+#| fig-cap: ""
 #| message: false
 #| warning: false
- 
+
 library(tidyverse)
 library(janitor)
-library(plotly)
+library(ggplot2)
 library(dplyr)
 
-#load dataset
-Malicious_Domains <- read_csv("data/3_malicious_domains.csv", show_col_types = FALSE)
-
-#clean column names
-Malicious_Domains <- Malicious_Domains |>
+#import data set
+Malicious_Domains <- read_csv("data/3_malicious_domains.csv", show_col_types = FALSE) |>
   clean_names()
 
-#check column names
-names(Malicious_Domains)
-
-#select columns for visualization
 threat_votes <- Malicious_Domains |>
   select(domain,
          total_engines,
@@ -95,61 +88,35 @@ threat_votes <- Malicious_Domains |>
          harmless_votes,
          undetected_votes)
 
-#check selected columns
-View(threat_votes)
-
-#restructure
 threat_votes_long <- threat_votes |>
   pivot_longer(cols = c(malicious_votes,
                         suspicious_votes,
                         harmless_votes,
                         undetected_votes),
                names_to = "vote_type",
-               values_to = "votes")
+               values_to = "votes") |>
+  mutate(vote_type = recode(vote_type,
+                            malicious_votes = "Malicious",
+                            suspicious_votes = "Suspicious",
+                            harmless_votes = "Harmless",
+                            undetected_votes = "Undetected"))
 
-#check reorganized dataset
-View(threat_votes_long)
-
-#establish domain ordering based on malicious votes
-domain_order <- Malicious_Domains |>
-  arrange(malicious_votes) |>
-  pull(domain)
-
-#apply the domain ordering
-threat_votes_long <- threat_votes_long |>
-  mutate(domain = factor(domain, levels = domain_order))
-
-#create the plot
-threat_plot <- ggplot(threat_votes_long, aes(x = domain,
+#create violin plot
+violin_plot <- ggplot(threat_votes_long, aes(x = vote_type,
                                              y = votes,
-                                             fill = vote_type,
-                                             text = paste("Domain:", domain,
-                                                          "<br>Vote Type:", vote_type,
-                                                          "<br>Votes:", votes,
-                                                          "<br>Total Engines:", total_engines,
-                                                          "<br>Threat Severity:", threat_severity))) +
-  geom_col() +
-  labs(title = "Threat Detection Votes Across Security Engines",
-       subtitle = "Comparison of malicious, suspicious, harmless, and undetected votes",
-       x = "Domain",
+                                             fill = vote_type)) +
+  geom_violin(trim = FALSE, alpha = 0.7) +
+  geom_boxplot(width = 0.12, outlier.shape = NA, alpha = 0.8) +
+  labs(title = "Distribution of Threat Detection Votes",
+       subtitle = "Comparison of security engine classifications across domains",
+       x = "Threat Classification",
        y = "Number of Engine Votes",
-       fill = "Threat Classification") +
+       fill = "Vote Type") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 90,
-                                   hjust = 1,
-                                   vjust = 0.5,
-                                   size = 7),
-        legend.position = "bottom",
-        plot.title = element_text(face = "bold",
-                                  size = 14))
+  theme(plot.title = element_text(face = "bold", size = 14),
+        axis.text.x = element_text(size = 10),
+        legend.position = "none")
 
-interactive_threat_plot <- ggplotly(threat_plot, tooltip = "text") |>
-  layout(hovermode = "closest",
-         legend = list(orientation = "h",
-                       y = -0.25),
-         margin = list(b = 160))
-
-#display interactive visualization
-interactive_threat_plot
-
+# Display violin plot
+print(violin_plot)
 ```
