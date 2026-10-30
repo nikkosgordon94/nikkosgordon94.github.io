@@ -1,15 +1,17 @@
 ---
-title: "About"
+title: "About Me"
 ---
+
+I'm an adventurous person who enjoys being active. I enjoy being out-doors in nature, so most of my time is spent hiking or star-gazing. In my spare time lately, I'm learning, working on a car, or in the gym.
 
 # Hobbies
 
-### <b><i>Martial Arts</i></b>
+Martial Arts
 
-### <b><i>Hiking</i></b>
+Hiking
 
-### <b><i>Free-climbing</i></b>
+Free-climbing
 
-### <b><i>Modifying Cars/Mechanic Work</i></b>
+Mechanic Work/Modifying Cars
 
-### <b><i>Weight-lifting</i></b>
+Weight Lifting
