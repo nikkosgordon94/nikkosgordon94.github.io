@@ -13,7 +13,6 @@ execute:
 ---
 
 ```{r}
-#| label: fig-margin
 #| fig-cap: "MPG vs horsepower, colored by transmission."
 #| message: false
 library(ggplot2)

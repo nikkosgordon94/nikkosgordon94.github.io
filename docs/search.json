@@ -4,7 +4,14 @@
     "href": "showcase.html",
     "title": "Showcase",
     "section": "",
-    "text": "Figure 1: MPG vs horsepower, colored by transmission.\n\n\n\n\n\n\n\n[1] \"sf\"         \"data.frame\"\n\n\n\n\n\nWorld Map Without Australia, Color Indexed.\n\n\n\n\n\n\n\n\n\nBasic Map of Solomon Islands.\n\n\n\n\n\n\n\n\n\nViolin Plot on Threat Votes"
+    "text": "MPG vs horsepower, colored by transmission.\n\n\n\n\n\n\n[1] \"sf\"         \"data.frame\"\n\n\n\n\n\nWorld Map Without Australia, Color Indexed.\n\n\n\n\n\n\n\n\n\nBasic Map of Solomon Islands.\n\n\n\n\n\n\n\n\n\nViolin Plot on Threat Votes"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Nikkos’ R Website",
+    "section": "",
+    "text": "Bio\nMy name is Nikkos Gordon, I’m currently 32 and aspiring to follow my goals in Education with Chaminade University of Honolulu. In school I’m majoring in DSAV and minoring in Cybersecurity; out of school I enjoy hiking and martial arts. My aspirations are to continue college to my MS in Data Science, to learn spatial visualization in depth, and showcase my projects on this site. This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account.\nThank you for reading, and if you would like to read my professional CV there is a tab on the left pane."
   },
   {
     "objectID": "about.html",
@@ -14,10 +21,10 @@
     "text": "Hobbies\n\nMartial Arts\n\n\nHiking\n\n\nFree-climbing\n\n\nModifying Cars/Mechanic Work\n\n\nWeight-lifting"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Nikkos’ R Website",
+    "objectID": "resume.html",
+    "href": "resume.html",
+    "title": "Resume",
     "section": "",
-    "text": "Bio\nMy name is Nikkos Gordon, I’m currently 32 and aspiring to follow my goals in Education with Chaminade University of Honolulu. In school I’m majoring in DSAV and minoring in Cybersecurity; out of school I enjoy hiking and martial arts. My aspirations are to continue college to my MS in Data Science, to learn spatial visualization in depth, and showcase my projects on this site. This website is generated through Quarto, created through my RStudio programming, and maintained through my Github account.\nThank you for reading, and if you would like to read my professional CV there is a tab on the left pane."
+    "text": "Download PDF file."
   }
 ]
