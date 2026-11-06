@@ -13,6 +13,8 @@ website:
       - about.qmd
       - resume.qmd
       - showcase.qmd
+      - href: http://nikkosgordon94.github.io/dashboards
+        text: Dashboard
       - icon: github
         href: http://github.com/nikkosgordon94
         target: blank
